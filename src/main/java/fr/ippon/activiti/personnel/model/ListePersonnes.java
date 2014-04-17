@@ -1,6 +1,9 @@
 package fr.ippon.activiti.personnel.model;
 
-import javax.persistence.Column;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,11 +15,12 @@ public class ListePersonnes {
 	@GeneratedValue
 	private Integer id;
 	
-	@Column
 	private String nom;
 	
-	@Column
 	private boolean valide;
+
+	@ElementCollection
+	private List<String> personnes = new ArrayList<String>();
 
 	public boolean isValide() {
 		return valide;
@@ -36,6 +40,15 @@ public class ListePersonnes {
 
 	public String getNom() {
 		return nom;
+	}
+	
+
+	public List<String> getPersonnes() {
+		return personnes;
+	}
+
+	public void setPersonnes(List<String> personnes) {
+		this.personnes = personnes;
 	}
 
 	public void setNom(String nom) {

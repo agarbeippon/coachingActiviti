@@ -15,7 +15,7 @@ import fr.ippon.activiti.personnel.service.ListePersonnesService;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/applicationContext.xml")
 @Transactional
-public class ActivitiTest {
+public class ListePersonnesProcessTest {
 	
 	@Autowired
 	ListePersonnesService listePersonnesService;
@@ -49,7 +49,13 @@ public class ActivitiTest {
 			
 			Assert.assertEquals(validateur, nomValidateurListe);
 			Assert.assertTrue(listePersonnes.isValide());
+			
 		}
 	
+		
+		
+		
+		
+		
 
 }
