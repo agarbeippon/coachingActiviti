@@ -9,6 +9,7 @@
    
   <logger name="fr.ippon" level="TRACE"/>
    
+<!--   <logger name="org.activiti" level="TRACE"/> -->
  
   <root level="INFO">
     <appender-ref ref="STDOUT" />
