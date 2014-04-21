@@ -34,12 +34,26 @@ public class ListePersonnesProcessTest {
 			
 			
 			String validateur = "monValidateur" ;
+
+			String preValidateur1 = "user 1" ;
+
+			String preValidateur2 = "user 2" ;
 			
 			ListePersonnes listePersonnes = new ListePersonnes();
 			listePersonnes.setNom("MaListe");
 			
 
 			listePersonnesService.initialiserNouvelleListePersonnes(listePersonnes);
+			
+			listePersonnesService.mettreEnPreValidation(listePersonnes);
+			
+			String nomPreValidateur1 = listePersonnesService.getNomPreValidateur1(listePersonnes);
+		
+			Assert.assertEquals(preValidateur1, nomPreValidateur1);
+			
+			String nomPreValidateur2 = listePersonnesService.getNomPreValidateur2(listePersonnes);
+			
+			Assert.assertEquals(preValidateur2, nomPreValidateur2);
 			
 			listePersonnesService.mettreEnValidation(listePersonnes, validateur);
 			

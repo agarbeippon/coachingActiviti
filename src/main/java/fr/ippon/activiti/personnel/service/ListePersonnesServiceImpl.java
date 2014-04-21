@@ -24,6 +24,10 @@ public class ListePersonnesServiceImpl implements ListePersonnesService {
 
 	private static final String NOM_TACHE_VALIDATION = "validation";
 
+	private static final String NOM_TACHE_PRE_VALIDATION1 = "preValidation1";
+
+	private static final String NOM_TACHE_PRE_VALIDATION2 = "preValidation2";
+
 	@Autowired
 	ListePersonnesDA listePersonnesDA;
 
@@ -43,9 +47,8 @@ public class ListePersonnesServiceImpl implements ListePersonnesService {
 
 		return listePersonnes;
 	}
-
-	public ListePersonnes mettreEnValidation(ListePersonnes listePersonnes,
-			String validateur) {
+	
+	public ListePersonnes mettreEnPreValidation(ListePersonnes listePersonnes) {
 
 		Task attenteMiseEnValidation = taskService.createTaskQuery()
 				.processDefinitionKey(CLE_PROCESS_LISTE_PERSONNES)
@@ -53,7 +56,39 @@ public class ListePersonnesServiceImpl implements ListePersonnesService {
 				.taskName(NOM_TACHE_EN_ATTENTE_MISE_EN_VALIDATION)
 				.singleResult();
 
-		taskService.complete(attenteMiseEnValidation.getId());
+
+		Map<String, Object> parametres = new HashMap<String, Object>();
+
+		parametres.put("preValidateur1", "user 1");
+		parametres.put("preValidateur2", "user 2");
+		
+		taskService.complete(attenteMiseEnValidation.getId(),parametres);
+
+
+		return listePersonnes;
+
+	}
+
+
+	public ListePersonnes mettreEnValidation(ListePersonnes listePersonnes,
+			String validateur) {
+
+		Task preValidation1 = taskService.createTaskQuery()
+				.processDefinitionKey(CLE_PROCESS_LISTE_PERSONNES)
+				.processInstanceBusinessKey(listePersonnes.getNom())
+				.taskName(NOM_TACHE_PRE_VALIDATION1)
+				.singleResult();
+
+		taskService.complete(preValidation1.getId());
+		
+
+		Task preValidation2 = taskService.createTaskQuery()
+				.processDefinitionKey(CLE_PROCESS_LISTE_PERSONNES)
+				.processInstanceBusinessKey(listePersonnes.getNom())
+				.taskName(NOM_TACHE_PRE_VALIDATION2)
+				.singleResult();
+
+		taskService.complete(preValidation2.getId());
 
 		Task validation = taskService.createTaskQuery()
 				.processDefinitionKey(CLE_PROCESS_LISTE_PERSONNES)
@@ -99,6 +134,24 @@ public class ListePersonnesServiceImpl implements ListePersonnesService {
 		return listePersonnesDA.findByNom(nom);
 		
 		
+	}
+
+	public String getNomPreValidateur1(ListePersonnes listePersonnes) {
+		Task validation = taskService.createTaskQuery()
+				.processDefinitionKey(CLE_PROCESS_LISTE_PERSONNES)
+				.processInstanceBusinessKey(listePersonnes.getNom())
+				.taskName(NOM_TACHE_PRE_VALIDATION1).singleResult();
+
+		return validation.getAssignee();
+	}
+
+	public String getNomPreValidateur2(ListePersonnes listePersonnes) {
+		Task validation = taskService.createTaskQuery()
+				.processDefinitionKey(CLE_PROCESS_LISTE_PERSONNES)
+				.processInstanceBusinessKey(listePersonnes.getNom())
+				.taskName(NOM_TACHE_PRE_VALIDATION2).singleResult();
+
+		return validation.getAssignee();
 	}
 
 
