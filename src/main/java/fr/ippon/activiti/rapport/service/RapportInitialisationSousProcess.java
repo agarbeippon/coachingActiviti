@@ -12,9 +12,8 @@ public class RapportInitialisationSousProcess implements JavaDelegate {
 	public void execute(DelegateExecution execution) throws Exception {
 
 		ExecutionEntity thisEntity = (ExecutionEntity)execution;
-		ExecutionEntity superExecEntity = thisEntity.getParent().getParent().getParent();
 		
-		thisEntity.setBusinessKey(superExecEntity.getBusinessKey()+"_"+execution.getVariable("personnelEvalue"));
+		thisEntity.setBusinessKey(execution.getProcessBusinessKey()+"_"+execution.getVariable("personnelEvalue"));
  
 	}
 }

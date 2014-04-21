@@ -15,8 +15,10 @@
       <scriptTask id="displayNomPersonne" name="displayNomPersonne" scriptFormat="groovy" activiti:autoStoreVariables="false">
         <script>out:println "debut subprocess rapport pour " + personnelEvalue</script>
       </scriptTask>
-      <sequenceFlow id="flow4" sourceRef="displayNomPersonne" targetRef="saisirRapport"></sequenceFlow>
+      <sequenceFlow id="flow4" sourceRef="displayNomPersonne" targetRef="logBusinessKey"></sequenceFlow>
       <sequenceFlow id="flow5" sourceRef="startevent2" targetRef="displayNomPersonne"></sequenceFlow>
+      <serviceTask id="logBusinessKey" name="logBusinessKey" activiti:expression="${logHelper.logBusinessKey(execution)}"></serviceTask>
+      <sequenceFlow id="flow8" sourceRef="logBusinessKey" targetRef="saisirRapport"></sequenceFlow>
     </subProcess>
     <scriptTask id="scripttask1" name="Script Task" scriptFormat="groovy" activiti:autoStoreVariables="false">
       <script>out:println "debut generation rapports"</script>
@@ -30,34 +32,41 @@
         <omgdc:Bounds height="35.0" width="35.0" x="10.0" y="258.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="subprocess1" id="BPMNShape_subprocess1">
-        <omgdc:Bounds height="191.0" width="421.0" x="230.0" y="180.0"></omgdc:Bounds>
+        <omgdc:Bounds height="191.0" width="591.0" x="230.0" y="180.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="startevent2" id="BPMNShape_startevent2">
         <omgdc:Bounds height="35.0" width="35.0" x="250.0" y="280.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="saisirRapport" id="BPMNShape_saisirRapport">
-        <omgdc:Bounds height="55.0" width="105.0" x="460.0" y="270.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="105.0" x="630.0" y="270.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="600.0" y="280.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="760.0" y="280.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="displayNomPersonne" id="BPMNShape_displayNomPersonne">
         <omgdc:Bounds height="55.0" width="105.0" x="320.0" y="270.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="logBusinessKey" id="BPMNShape_logBusinessKey">
+        <omgdc:Bounds height="55.0" width="105.0" x="470.0" y="270.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="scripttask1" id="BPMNShape_scripttask1">
         <omgdc:Bounds height="55.0" width="105.0" x="90.0" y="248.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
-        <omgdi:waypoint x="565.0" y="297.0"></omgdi:waypoint>
-        <omgdi:waypoint x="600.0" y="297.0"></omgdi:waypoint>
+        <omgdi:waypoint x="735.0" y="297.0"></omgdi:waypoint>
+        <omgdi:waypoint x="760.0" y="297.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
         <omgdi:waypoint x="425.0" y="297.0"></omgdi:waypoint>
-        <omgdi:waypoint x="460.0" y="297.0"></omgdi:waypoint>
+        <omgdi:waypoint x="470.0" y="297.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
         <omgdi:waypoint x="285.0" y="297.0"></omgdi:waypoint>
         <omgdi:waypoint x="320.0" y="297.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="575.0" y="297.0"></omgdi:waypoint>
+        <omgdi:waypoint x="630.0" y="297.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
         <omgdi:waypoint x="45.0" y="275.0"></omgdi:waypoint>
