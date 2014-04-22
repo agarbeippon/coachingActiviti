@@ -37,7 +37,7 @@ public class RapportServiceImpl implements RapportService {
 		parametres.put("membresDuPersonnelEvalues", new ArrayList<String>(listePersonnes.getPersonnes()));
 		
 		runtimeService.startProcessInstanceByKey(CLE_PROCESS_RAPPORT,
-				listePersonnes.getNom(),parametres);
+				"Process_rapport_"+listePersonnes.getNom(),parametres);
 		
 		
 	}
